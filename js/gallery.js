@@ -93,7 +93,17 @@ refs.galleryElem.addEventListener("click", eventPropagation);
 function eventPropagation(event) {
   event.preventDefault();
 
+  if (event.target === event.currentTarget) {
+    return;
+  }
+
   const dataSource = event.target.dataset.source;
 
   console.log(dataSource, event.target.alt);
+
+  const instance = basicLightbox.create(`
+    <img src="${dataSource}" width="800" height="600">
+  `);
+
+  instance.show();
 }
