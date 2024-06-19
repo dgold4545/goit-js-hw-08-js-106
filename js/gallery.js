@@ -66,13 +66,14 @@ const images = [
 
 const refs = {
   galleryElem: document.querySelector(".gallery"),
+  galleryLinkElem: document.querySelector(".gallery-link"),
 };
 
 function createMarkup(arr) {
   return arr
     .map(
       ({ preview, original, description }) => `<li class="gallery-item">
-          <a class="gallery-link" href="large-image.jpg">
+          <a class="gallery-link" href="${original}">
           <img
             class="gallery-image"
             src="${preview}"
@@ -87,4 +88,12 @@ function createMarkup(arr) {
 
 refs.galleryElem.insertAdjacentHTML("afterbegin", createMarkup(images));
 
-console.log(createMarkup(images));
+refs.galleryElem.addEventListener("click", eventPropagation);
+
+function eventPropagation(event) {
+  event.preventDefault();
+
+  const dataSource = event.target.dataset.source;
+
+  console.log(dataSource, event.target.alt);
+}
